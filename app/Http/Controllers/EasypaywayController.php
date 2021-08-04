@@ -18,13 +18,11 @@ class EasypaywayController extends Controller
         $post_data = array();
         $post_data['total_amount'] = $order->grand_total; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
-        $post_data['transaction_id'] = uniqid('sM_', true); // tran_id must be unique
         $orderId = "orderId_".$order->id;
 
         $info = [
             'amount'          => $post_data['total_amount'],
         ];
-        session()->put('sM_transaction_id', $post_data['transaction_id']);
 
         return EasypaywayService::initiatePayment($info);
     }
